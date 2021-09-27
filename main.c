@@ -68,7 +68,7 @@ void trim_data_rows() {
     }
     data_rows = realloc(data_rows, sizeof(double*) * data_row_count);
     if (data_rows == NULL) {
-        failwith("Trimming the data_rows with realloc caused an error!");
+        failwith("Trimming the data_rows with realloc caused an error!\n");
     }
 }
 
@@ -81,7 +81,7 @@ void parse_data_row(char* line, size_t line_number) {
     if (data_row_count == data_row_cap) {
         if (data_row_cap == (ULONG_MAX / 2)) {
             // We can't fit anymore data in a single pointer :(
-            failwith("Cannot fit anymore row data in single memory address, please shorten the input!");
+            failwith("Cannot fit anymore row data in single memory address, please shorten the input!\n");
         }
 
         // Time to re-allocate
@@ -108,13 +108,13 @@ void parse_data_row(char* line, size_t line_number) {
             if (line_pointer == NULL) {
                 // We ran out of separators while looking for the next column, the data is missing.
                 if (fail_on_errors) {
-                    failwithf("Could not find column %zu in line %zu'%s'", column, line_number + 1, line);
+                    failwithf("Could not find column %zu in line %zu'%s'\n", column, line_number + 1, line);
                 } else {
                     return;
                 }
             }
             if (fsep_len > strlen(line_pointer)) {
-                failwithf("The remainder of the line was less than the length of the field_separator...");
+                failwithf("The remainder of the line was less than the length of the field_separator...\n");
             }
             line_pointer += fsep_len; //Skip over the field_separator
             j += 1;
@@ -123,7 +123,7 @@ void parse_data_row(char* line, size_t line_number) {
         int res = sscanf(line_pointer, "%lf", &(data_rows[r][i]));
 
         if (!res && fail_on_errors) {
-            failwithf("Could not parse columns off of line %zu:'%s'", line_number + 1, line);
+            failwithf("Could not parse columns off of line %zu:'%s'\n", line_number + 1, line);
         } else if(!res) {
             // We ignore the error and leave what we've parsed in memory, we'll realloc later.
             return;
@@ -149,7 +149,7 @@ void add_column_index(size_t index) {
 
     // If realloc fails, we've encountered a critical error.
     if (columns == NULL) {
-        failwith("realloc of columns failed!");
+        failwith("realloc of columns failed!\n");
     }
     columns[column_count] = index;
     column_count += 1;
@@ -159,7 +159,7 @@ void add_column(char* column) {
     size_t c;
     int res = sscanf(column, "%zu", &c);
     if (!res) {
-        failwithf("Could not parse column '%s' as an unsigned integer!", column);
+        failwithf("Could not parse column '%s' as an unsigned integer!\n", column);
     }
     add_column_index(c);
 }
@@ -170,11 +170,11 @@ void add_column_range(char* range) {
     int res = sscanf(range, "%zu-%zu", &from, &to);
 
     if (!res) {
-        failwithf("Could not parse range '%s', make sure that it is of the format <digit>-<digit>", range);
+        failwithf("Could not parse range '%s', make sure that it is of the format <digit>-<digit>\n", range);
     }
 
     if (to <= from) {
-        failwithf("Invalid range '%s'", range);
+        failwithf("Invalid range '%s'\n", range);
     }
 
     size_t i;
@@ -239,7 +239,10 @@ void parse_args(int argc, char** argv) {
             case 'k': {
                           int res = sscanf(optarg, "%zu", &kernels);
                           if (!res) {
-                              failwithf("Could not convert '%s' to an unsigned integer!", optarg);
+                              failwithf("Could not convert kernel amount '%s' to an unsigned integer!\n", optarg);
+                          }
+                          if (kernels < 2) {
+                              failwithf("Kernel amount must be at least 2!\n");
                           }
                       } break;
 
