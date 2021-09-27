@@ -84,7 +84,7 @@ To run `c_means`, you need some input data.
 A good example could be [the famous iris dataset](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data).
 
 You can classify the iris dataset (which consists of 3 species of flower and their characteristics) by passing it to `c_means` 
-(not that `c_means` uses zero-indexing, but the rest of the commands do not):
+(note that `c_means` uses zero-indexing, but most bash-commands use 1-indexing):
 
 ```sh
 group#@cos:~$ c_means -k 3 0-2 < iris.data > iris.out # Gives us the c_means classifications for each row
