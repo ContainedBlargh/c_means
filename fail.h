@@ -11,7 +11,7 @@
  * @brief The fail-module.
  * 
  * @file fail.h
- * @author WingCorp
+ * @author WingCorp (https://github.com/WingCorp)
  * @date 2018-06-19
  */
 
