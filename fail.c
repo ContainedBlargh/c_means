@@ -6,12 +6,12 @@ void trace_stack()
     int frames = backtrace(callstack, 1024);
     char** strs = backtrace_symbols(callstack, frames);
     int i;
-    printf(FAIL_RED);
+    fprintf(stderr, FAIL_RED);
     for (i = 0; i < frames; i++)
     {
-        printf("%s\n", strs[i]);
+        fprintf(stderr, "%s\n", strs[i]);
     }
-    printf(FAIL_RESET);
+    fprintf(stderr, FAIL_RESET);
     free(strs);
 }
 

@@ -287,6 +287,7 @@ void parse_args(int argc, char** argv) {
 }
 
 char line_buffer[2048];
+int ignore;
 
 int main(int argc, char** argv) {
     parse_args(argc, argv);
@@ -298,7 +299,7 @@ int main(int argc, char** argv) {
         // If we are ignoring a header, 
         // that means we should add a header to the output.
         // Otherwise, the output will be offset by a line.
-        scanf("%s\n", line_buffer);
+        ignore = scanf("%s\n", line_buffer);
         printf("%skernel\n", field_separator);
     }
     while(scanf("%s\n", line_buffer) != EOF) {
