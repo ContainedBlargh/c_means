@@ -2,7 +2,7 @@
 > K-means clustering implemented as a commandline tool in C.
 
 
-This is an implementation of [K-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) meant to be an example of implementing a simple algorithm in C as a fully fledged commandline tool.
+This is an implementation of [K-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) meant to be an example of implementing a simple algorithm in C as a fully-fledged commandline tool.
 C is, nowadays, particularly useful for small data crunching jobs where other programming languages and libraries, 
 such as python & pandas/numpy end up being much slower. At some point, you reach diminishing returns though, 
 and then real data processing languages/tools such as apache spark become relevant again.
@@ -95,7 +95,7 @@ group#@cos:~$ less iris.classified # You can eyeball how well the clustering fit
 ```
 
 Alternatively, you can run the above as a single command:
-```
+```sh
 c_means -k 3 0-2 < iris.data | paste -d , iris.data - | less # Take a look directly in less
 ```
 
